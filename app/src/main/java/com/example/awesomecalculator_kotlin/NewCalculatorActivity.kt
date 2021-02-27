@@ -1,7 +1,6 @@
 package com.example.awesomecalculator_kotlin
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +47,6 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d(TAG, "Starting app")
         init()
     }
 
@@ -58,20 +56,12 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
         calculatorText = findViewById(R.id.calculationText)
         resultText = findViewById(R.id.resultText)
         resultText.text = "0"
-        // TODO Calculate the size for each element
         val glm = GridLayoutManager(this, 4)
         glm.setSpanSizeLookup(object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (Verticalkeys.get(position) == "AC" || Verticalkeys.get(position) == "CE") 2 else 1
             }
         })
-//        glm.checkLayoutParams(object : RecyclerView.LayoutParams() {
-//            fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
-//                // force height of viewHolder here, this will override layout_height from xml
-//                lp.height = getHeight() / 3
-//                return true
-//            }
-//        })
         recyclerView.layoutManager = glm
         val recyclerViewAdapter = CalculatorAdapter(this, Verticalkeys)
         recyclerView.adapter = recyclerViewAdapter
@@ -91,7 +81,6 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
                         }
                     } else
                         if (calculation.takeLast(2).contains(Regex("""[x\/+-]\s"""))) {
-                            Log.i(TAG, "replacing command")
                             calculation.replace(
                                 calculation.length - 3,
                                 calculation.length,
@@ -107,7 +96,7 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
             }
             resultText.text = calculation
         }else{
-            Toast.makeText(this, "Digit limit exceeded", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.limit, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -165,7 +154,6 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
         }
         // Check type
         current = checkInteger(current)
-        Log.i(TAG, "after $current")
 
         if(checkSign.containsMatchIn(calculation)){
             // Keep the result
@@ -174,14 +162,12 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
             calculatorText.text = calculation.append(" = ")
             resultText.text = current
             calculation = StringBuilder(current)
-            showResult = true
         }
 
     }
 
 
     override fun deleteCommands() {
-        Log.i(TAG, "last $calculation")
         if(calculation.endsWith(" ")){
             calculation.deleteRange(calculation.length - 3, calculation.length)
             resultText.text = calculation

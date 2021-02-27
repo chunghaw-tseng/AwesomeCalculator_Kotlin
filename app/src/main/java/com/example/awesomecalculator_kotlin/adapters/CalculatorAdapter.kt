@@ -1,6 +1,5 @@
 package com.example.awesomecalculator_kotlin.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,8 +76,4 @@ class CalculatorAdapter(
 
     override fun getItemCount(): Int = listOfKeys.size
 
-//    fun setKeys(listOfMovies: List<Key>) {
-//        this.listOfKeys = listOfMovies
-//        notifyDataSetChanged()
-//    }
 }
