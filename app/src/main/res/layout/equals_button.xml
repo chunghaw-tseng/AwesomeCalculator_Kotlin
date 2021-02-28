@@ -11,7 +11,7 @@
         android:gravity="center"
         android:id="@+id/calculator_btn"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="25sp"
         android:backgroundTint="@color/candy_red">
     </Button>
 

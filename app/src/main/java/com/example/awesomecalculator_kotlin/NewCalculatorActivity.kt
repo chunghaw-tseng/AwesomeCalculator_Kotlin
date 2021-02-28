@@ -1,6 +1,7 @@
 package com.example.awesomecalculator_kotlin
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.awesomecalculator_kotlin.adapters.CalculatorAdapter
 import com.example.awesomecalculator_kotlin.callbacks.btnCallbacks
 import java.lang.StringBuilder
+import java.math.BigDecimal
 
 
 class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
@@ -39,7 +41,7 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
     private lateinit var calculatorText: TextView
     private lateinit var resultText: TextView
     private var calculation:StringBuilder = StringBuilder()
-    private var limitText:Int = 25
+    private var limitText:Int = 20
     private var showResult:Boolean = false
 
 
@@ -107,22 +109,23 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
             return value
     }
 
+    // Using BigDecimal since Double wil give wrong precision
     fun doCalculations(s:String):String{
         val t = s.split(" ")
         val firstval = t[0]
         if (firstval.isNotEmpty()){
             when(t[1]){
                 "x"->{
-                    return (firstval.toDouble() * t[2].toDouble()).toString()
+                    return (BigDecimal(firstval).multiply(BigDecimal(t[2]))).toString()
                 }
                 "/"->{
-                    return (firstval.toDouble() / t[2].toDouble()).toString()
+                    return (BigDecimal(firstval).divide(BigDecimal(t[2]))).toString()
                 }
                 "-" -> {
-                    return (firstval.toDouble() - t[2].toDouble()).toString()
+                    return (BigDecimal(firstval).subtract(BigDecimal(t[2]))).toString()
                 }
                 "+" -> {
-                    return (firstval.toDouble() + t[2].toDouble()).toString()
+                    return (BigDecimal(firstval).add(BigDecimal(t[2]))).toString()
                 }
             }}
 
@@ -137,7 +140,7 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
 
         // Do calculation
         // Multiply + Divide
-        val pattern1 = Regex("(\\d*\\.?\\d*\\s[x\\/]\\s\\d*\\.?\\d*)")
+        val pattern1 = Regex("(-?\\d*\\.?\\d*\\s[x\\/]\\s\\d*\\.?\\d*)")
         while(pattern1.containsMatchIn(current)){
             current = current.replace(pattern1) {m ->
                 val split = doCalculations(m.value);
@@ -145,7 +148,7 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
             }
         }
         // Add + substract
-        val pattern2 = Regex("(\\d*\\.?\\d*\\s[+-]\\s\\d*\\.?\\d*)")
+        val pattern2 = Regex("(-?\\d*\\.?\\d*\\s[+-]\\s\\d*\\.?\\d*)")
         while(pattern2.containsMatchIn(current)){
             current = current.replace(pattern2) {m ->
                 val split = doCalculations(m.value);
@@ -163,7 +166,7 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
             resultText.text = current
             calculation = StringBuilder(current)
         }
-
+        showResult = true
     }
 
 

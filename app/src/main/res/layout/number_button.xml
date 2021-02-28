@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="25sp"
         android:textColor="@color/white"
         android:id="@+id/calculator_btn"
         android:backgroundTint="@color/dark_blue">

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">素晴らしい計算機</string>
+    <string name="limit">桁数制限を超えました</string>
+</resources>
