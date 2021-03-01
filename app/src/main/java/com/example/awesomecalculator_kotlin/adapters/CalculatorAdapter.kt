@@ -20,6 +20,9 @@ class CalculatorAdapter(
 
     // View from the layout
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        /**
+         * Main view of every single element in the recycler view
+         */
         val button: Button
 
         init {
@@ -29,6 +32,9 @@ class CalculatorAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        /**
+         * Creating the view holder in the recycler view
+         */
         var height:Int = parent.measuredHeight / 5
         val view:View = if(listOfKeys[viewType].contains(Regex("""[0-9.]"""))){
             LayoutInflater.from(parent.context).inflate(R.layout.number_button, parent, false)
@@ -49,6 +55,9 @@ class CalculatorAdapter(
 
     // Changing view types
     override fun getItemViewType(position: Int): Int {
+        /**
+         * Getting view type to be able to differentiate the different views
+         */
         return position
     }
 
