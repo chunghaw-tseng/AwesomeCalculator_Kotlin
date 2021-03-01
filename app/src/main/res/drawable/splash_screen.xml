@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/calculator_img"/>
+            android:src="@drawable/calculator_splash"/>
     </item>
 </layer-list>
