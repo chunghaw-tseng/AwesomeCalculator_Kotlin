@@ -1,6 +1,5 @@
 package com.example.awesomecalculator_kotlin
 
-import android.opengl.ETC1.getHeight
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.awesomecalculator_kotlin.adapters.CalculatorAdapter
 import com.example.awesomecalculator_kotlin.callbacks.btnCallbacks
-
+import kotlinx.android.synthetic.main.activity_main.*
 
 // TODO Use GridLayout and not Recycler layout
 class CalculatorActivity : AppCompatActivity(), btnCallbacks {
@@ -54,9 +53,8 @@ class CalculatorActivity : AppCompatActivity(), btnCallbacks {
 
     private fun init(){
         // Start the initialization of the activity
-        val recyclerView:RecyclerView = findViewById(R.id.keys_grid)
-        calculatorText = findViewById(R.id.calculationText)
-        resultText = findViewById(R.id.resultText)
+//        val recyclerView:RecyclerView = findViewById(R.id.keys_grid)
+//        resultText = findViewById(R.id.resultText)
         // TODO Calculate the size for each element
         val glm = GridLayoutManager(this, 4)
         glm.setSpanSizeLookup(object : SpanSizeLookup() {
@@ -71,19 +69,18 @@ class CalculatorActivity : AppCompatActivity(), btnCallbacks {
 //                return true
 //            }
 //        })
-        recyclerView.layoutManager = glm
+        keys_grid.layoutManager = glm
         val recyclerViewAdapter = CalculatorAdapter(this, Verticalkeys)
-        recyclerView.adapter = recyclerViewAdapter
+        keys_grid.adapter = recyclerViewAdapter
 
 //        recyclerViewAdapter.setKeys(populateData())
     }
 
-    // TODO allow the - value at the start
-    // TODO Replace values
+
     override fun addCommands(cmd: String) {
         // TODO Add the value to the result when ever the boolean is true
         if (showResult){
-            calculatorText.text = "Ans = ${calculate[0]}"
+            calculationText.text = "Ans = ${calculate[0]}"
             showResult = false
         }
 

@@ -12,6 +12,7 @@ import com.example.awesomecalculator_kotlin.adapters.CalculatorAdapter
 import com.example.awesomecalculator_kotlin.callbacks.btnCallbacks
 import java.lang.StringBuilder
 import java.math.BigDecimal
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
@@ -39,8 +40,6 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
     )
     // INIT VALUE
     private val init:String = "0"
-    private lateinit var calculatorText: TextView
-    private lateinit var resultText: TextView
     private var calculation:StringBuilder = StringBuilder()
     private var limitText:Int = 20
     private var showResult:Boolean = false
@@ -58,9 +57,6 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
          * Intialize the elements
          */
         // Start the initialization of the activity
-        val recyclerView:RecyclerView = findViewById(R.id.keys_grid)
-        calculatorText = findViewById(R.id.calculationText)
-        resultText = findViewById(R.id.resultText)
         resultText.text = "0"
         // Using Recycler view to increase or to change the amount of buttons in the future
         val glm = GridLayoutManager(this, 4)
@@ -69,9 +65,9 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
                 return if (Verticalkeys.get(position) == "AC" || Verticalkeys.get(position) == "CE") 2 else 1
             }
         })
-        recyclerView.layoutManager = glm
+        keys_grid.layoutManager = glm
         val recyclerViewAdapter = CalculatorAdapter(this, Verticalkeys)
-        recyclerView.adapter = recyclerViewAdapter
+        keys_grid.adapter = recyclerViewAdapter
     }
 
     override fun addCommands(cmd: String) {
@@ -177,12 +173,12 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
 
         if(checkSign.containsMatchIn(calculation)){
             if (calculation.toString() == "-"){
-                calculatorText.text = "Ans = 0"
+                calculationText.text = "Ans = 0"
             }else{
-                calculatorText.text = "Ans = $current"
+                calculationText.text = "Ans = $current"
             }
         }else{
-            calculatorText.text = calculation.append(" = ")
+            calculationText.text = calculation.append(" = ")
             resultText.text = current
             calculation = StringBuilder(current)
         }
@@ -211,7 +207,7 @@ class NewCalculatorActivity : AppCompatActivity(), btnCallbacks {
          * Function that clears the text from the calculation and it puts the result in the result textView
          */
         if (showResult){
-            calculatorText.text = "Ans = $calculation"
+            calculationText.text = "Ans = $calculation"
             calculation.clear()
             resultText.text = init
             showResult = false

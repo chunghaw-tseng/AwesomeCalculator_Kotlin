@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.awesomecalculator_kotlin.R
 import com.example.awesomecalculator_kotlin.callbacks.btnCallbacks
+import kotlinx.android.synthetic.main.sign_button.*
 
 
 // Calculate the real size and resize the view holders
